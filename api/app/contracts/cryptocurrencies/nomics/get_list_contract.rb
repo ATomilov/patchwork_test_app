@@ -10,11 +10,11 @@ module Cryptocurrencies
       end
 
       rule(:per_page) do
-        add_allowed_per_page_failure(key: key, value: value)
+        add_allowed_per_page_failure(key: key, value: value) if key?
       end
 
       rule(:page_number) do
-        add_non_positive_failure(key: key, value: value)
+        add_non_positive_failure(key: key, value: value) if key?
       end
 
       private
