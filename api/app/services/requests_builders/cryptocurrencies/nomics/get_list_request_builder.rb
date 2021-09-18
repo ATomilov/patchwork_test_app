@@ -5,6 +5,7 @@ module RequestsBuilders
         option :currencies_list, []
         option :per_page, optional: true
         option :page_number, optional: true
+        option :broker_currency, optional: true
 
         def url
           self.class::TARGET_URL
@@ -16,6 +17,8 @@ module RequestsBuilders
 
         private
 
+        include ::Constants
+
         TARGET_URL = "#{App.config.api.v1.nomics.base_url}#{App.config.api.v1.nomics.currencies_ticker.path}".freeze
         REQUEST_METHOD = App.config.api.v1.nomics.currencies_ticker.request_method.freeze
         JOIN_DELIMITER = ','.freeze
@@ -24,7 +27,8 @@ module RequestsBuilders
           super.merge(
             ids: prepared_currencies_list,
             'per-page' => current_per_page,
-            page: current_page_number
+            page: current_page_number,
+            convert: current_broker_currency
           )
         end
 
@@ -38,6 +42,10 @@ module RequestsBuilders
 
         def current_page_number
           page_number.presence || App.config.api.v1.nomics.page_number
+        end
+
+        def current_broker_currency
+          broker_currency.presence || DEFAULT_BROKER_CURRENCY
         end
       end
     end
