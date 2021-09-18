@@ -9,7 +9,8 @@ describe ::Cryptocurrencies::Nomics::GetListContract do
       currencies: %w[test1 test2 test3],
       per_page: '50',
       page_number: '2',
-      display_fields: %w[test1 test2 test3]
+      display_fields: %w[test1 test2 test3],
+      broker_currency: 'test'
     }
   end
 
@@ -24,7 +25,8 @@ describe ::Cryptocurrencies::Nomics::GetListContract do
       currencies: ['', 1, nil],
       per_page: 30,
       page_number: 1,
-      display_fields: ['', 1, nil]
+      display_fields: ['', 1, nil],
+      broker_currency: nil
     }
   end
 
@@ -84,6 +86,16 @@ describe ::Cryptocurrencies::Nomics::GetListContract do
           [nil, nil],
           [12, 12]
         ].each do |value|
+          it_behaves_like 'failed validation with a specific attribute' do
+            let(:value) { value }
+          end
+        end
+      end
+
+      context 'and when the broker_currency param is invalid' do
+        let(:param) { :broker_currency }
+
+        ['', ' ', 1, 100, ' 1test', ' 1test1 ', ' 0 asdf asdf', nil].each do |value|
           it_behaves_like 'failed validation with a specific attribute' do
             let(:value) { value }
           end
