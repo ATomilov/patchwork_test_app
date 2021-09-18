@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :cryptocurrencies, only: %i[index] do
         collection do
           get :convert_currencies
+          get :convert_currencies_via_additional_currency
         end
       end
     end
