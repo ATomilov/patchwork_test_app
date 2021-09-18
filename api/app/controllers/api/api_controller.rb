@@ -1,6 +1,6 @@
 module Api
   class ApiController < ActionController::API
-    # rescue_from Exception, with: :exception_handler
+    rescue_from Exception, with: :exception_handler
 
     private
 
@@ -8,7 +8,8 @@ module Api
       'ActiveRecord::RecordNotFound' => 404,
       'ActionController::ParameterMissing' => 400,
       'ActiveRecord::RecordInvalid' => 422,
-      'ArgumentError' => 400
+      'ArgumentError' => 400,
+      'KeyError' => 400
     }.freeze
 
     def exception_handler(exception)
