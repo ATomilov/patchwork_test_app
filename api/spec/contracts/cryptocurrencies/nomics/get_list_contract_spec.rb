@@ -8,7 +8,8 @@ describe ::Cryptocurrencies::Nomics::GetListContract do
     {
       currencies: %w[test1 test2 test3],
       per_page: '50',
-      page_number: '2'
+      page_number: '2',
+      display_fields: %w[test1 test2 test3]
     }
   end
 
@@ -22,7 +23,8 @@ describe ::Cryptocurrencies::Nomics::GetListContract do
     {
       currencies: ['', 1, nil],
       per_page: 30,
-      page_number: 1
+      page_number: 1,
+      display_fields: ['', 1, nil]
     }
   end
 
@@ -68,6 +70,20 @@ describe ::Cryptocurrencies::Nomics::GetListContract do
         let(:param) { :page_number }
 
         ['', ' ', 1, 100, '1test', '1test1', '0'].each do |value|
+          it_behaves_like 'failed validation with a specific attribute' do
+            let(:value) { value }
+          end
+        end
+      end
+
+      context 'and when the display_fields param is invalid' do
+        let(:param) { :display_fields }
+
+        [
+          ['', ' ', nil, 1],
+          [nil, nil],
+          [12, 12]
+        ].each do |value|
           it_behaves_like 'failed validation with a specific attribute' do
             let(:value) { value }
           end
