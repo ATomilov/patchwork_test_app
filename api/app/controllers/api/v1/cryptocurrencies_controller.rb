@@ -45,7 +45,7 @@ module Api
 
       def render_monads_result(monads_result:)
         json_response(
-          object: monads_result.success? ? monads_result.value! : { errors: monads_result.failure }
+          object: monads_result.success? ? monads_result.value! : { errors: Array.wrap(monads_result.failure) }
         )
       end
 
