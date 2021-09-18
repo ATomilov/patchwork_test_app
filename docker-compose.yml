@@ -15,8 +15,6 @@ services:
       - bundle_gems:/usr/local/bundle
     ports:
       - 3000:3000
-    environment:
-      RAILS_ENV: development
 
 volumes:
   bundle_gems:
