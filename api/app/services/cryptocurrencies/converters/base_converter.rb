@@ -23,13 +23,14 @@ module Cryptocurrencies
       JOIN_DELIMITER = ', '.freeze
 
       def convert_currencies
-        raise NotImplementedError
+        return Failure(validations_errors) if incoming_data_invalid?
+        return Failure(response_object.failure) unless response_object.success?
       end
 
-      def formatted_validation_result_string
+      def validations_errors
         validations.map do |validation|
           validation.errors(full: true).flat_map(&:text)
-        end.join(JOIN_DELIMITER)
+        end
       end
 
       def incoming_data_invalid?
