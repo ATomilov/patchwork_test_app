@@ -8,6 +8,7 @@ module Cryptocurrencies
         optional(:per_page).value(:str?, format?: ONLY_DIGITS_REGEXP)
         optional(:page_number).value(:str?, format?: ONLY_DIGITS_REGEXP)
         optional(:display_fields).value(:array).each(:string)
+        optional(:broker_currency).value(:string, format?: WITHOUT_SPACES_REGEXP)
       end
 
       rule(:per_page) do

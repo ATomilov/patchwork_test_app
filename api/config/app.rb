@@ -11,6 +11,11 @@ class App
         end
         setting :per_page, default: 100
         setting :page_number, default: 1
+        setting :broker_currency, default: 'USD'
+        setting :errors do
+          setting :missing_currencies,
+                  default: 'Some currencies are missing in the response of an external API service'
+        end
       end
     end
   end
