@@ -22,6 +22,16 @@ module Api
         end
       end
 
+      def convert_currencies
+        converter_result = ::Cryptocurrencies::Converters::SimpleConverter.new(
+          source_currency: params[:source_currency],
+          target_currency: params[:target_currency]
+        ).call
+        json_response(
+          object: converter_result.success? ? converter_result.value! : { errors: converter_result.failure }
+        )
+      end
+
       private
 
       JOIN_DELIMITER = ', '.freeze
