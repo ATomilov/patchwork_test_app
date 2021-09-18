@@ -11,8 +11,7 @@ module Cryptocurrencies
       ATTRIBUTES_SELECT = %w[id price].freeze
 
       def convert_currencies
-        return Failure(formatted_validation_result_string) if incoming_data_invalid?
-        return Failure(response_object.failure) unless response_object.success?
+        super
 
         response_object_value = response_object.value!
         return Failure(MISSING_CURRENCIES_ERROR) if response_object_value.size < 2
