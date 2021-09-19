@@ -5,7 +5,7 @@ describe ::RequestsBuilders::Cryptocurrencies::Nomics::GetListRequestBuilder do
   let(:expected_request_type) { 'get' }
   let(:expected_api_key) { 'test-key' }
 
-  let(:currencies_list) { %w[test1 test2 test3] }
+  let(:currencies) { %w[test1 test2 test3] }
   let(:ids_for_request) { 'test1,test2,test3' }
   let(:per_page) { 50 }
   let(:page_number) { 2 }
@@ -15,15 +15,15 @@ describe ::RequestsBuilders::Cryptocurrencies::Nomics::GetListRequestBuilder do
 
   subject(:builder_with_all_params) do
     described_class.new(
-      currencies_list: currencies_list,
+      currencies: currencies,
       per_page: per_page,
       page_number: page_number
     )
   end
 
-  subject(:builder_with_currencies_list_only) do
+  subject(:builder_with_currencies_only) do
     described_class.new(
-      currencies_list: currencies_list
+      currencies: currencies
     )
   end
 
@@ -55,8 +55,8 @@ describe ::RequestsBuilders::Cryptocurrencies::Nomics::GetListRequestBuilder do
 
     context 'when the incoming params does not contain the per_page and page_number options' do
       it 'returns the default values', :aggregate_failures do
-        expect(builder_with_currencies_list_only.options.dig(:query, 'per-page')).to eq(default_per_page)
-        expect(builder_with_currencies_list_only.options.dig(*%i[query page])).to eq(default_page_number)
+        expect(builder_with_currencies_only.options.dig(:query, 'per-page')).to eq(default_per_page)
+        expect(builder_with_currencies_only.options.dig(*%i[query page])).to eq(default_page_number)
       end
     end
   end
