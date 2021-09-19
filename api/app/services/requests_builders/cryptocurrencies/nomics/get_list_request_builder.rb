@@ -2,7 +2,7 @@ module RequestsBuilders
   module Cryptocurrencies
     module Nomics
       class GetListRequestBuilder < ::RequestsBuilders::Cryptocurrencies::Nomics::BaseRequestBuilder
-        option :currencies_list, []
+        option :currencies, []
         option :per_page, optional: true
         option :page_number, optional: true
         option :broker_currency, optional: true
@@ -25,15 +25,15 @@ module RequestsBuilders
 
         def query_params
           super.merge(
-            ids: prepared_currencies_list,
+            ids: prepared_currencies,
             'per-page' => current_per_page,
             page: current_page_number,
             convert: current_broker_currency
           )
         end
 
-        def prepared_currencies_list
-          currencies_list.join(JOIN_DELIMITER)
+        def prepared_currencies
+          currencies.join(JOIN_DELIMITER)
         end
 
         def current_per_page

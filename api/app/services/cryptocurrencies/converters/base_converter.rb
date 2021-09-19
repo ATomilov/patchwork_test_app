@@ -20,8 +20,6 @@ module Cryptocurrencies
 
       include Dry::Monads[:result]
 
-      JOIN_DELIMITER = ', '.freeze
-
       def convert_currencies
         return Failure(validations_errors) if incoming_data_invalid?
         return Failure(response_object.failure) unless response_object.success?

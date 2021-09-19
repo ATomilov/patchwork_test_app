@@ -34,7 +34,7 @@ module Cryptocurrencies
 
       def request_object
         ::RequestsBuilders::Cryptocurrencies::Nomics::GetListRequestBuilder.new(
-          currencies_list: [source_currency, target_currency],
+          currencies: [source_currency, target_currency],
           broker_currency: broker_currency.presence || DEFAULT_BROKER_CURRENCY
         )
       end
